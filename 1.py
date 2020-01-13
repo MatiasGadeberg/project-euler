@@ -1,4 +1,4 @@
-""" Code for solving project euler problem 1-2 """
+""" Code for solving project euler problem 1-3 """
 
 #Problem 1
 def get_3_5_sum(num):
@@ -30,3 +30,16 @@ def even_fibbonachi_sum(num):
     return sum(evenFib)
 
 print(even_fibbonachi_sum(4000000))
+
+#Problem 3
+def prime_generator(numMax):
+    """ Create a list of Primes below num """
+    primelist = [1, 2, 3, 5]
+    for num in range(6, numMax+1):
+        for i in range(2, num//2):
+            if num % i == 0:
+                break
+            primelist.append(num)
+    return primelist
+
+print(prime_generator(100))
