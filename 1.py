@@ -1,3 +1,4 @@
+
 """ Code for solving project euler problem 1-3 """
 
 ############################################
@@ -35,7 +36,7 @@ def even_fibbonachi_sum(num):
     evenFib = [fib for fib in fibs if (fib % 2 == 0)]
     return sum(evenFib)
 
-print(even_fibbonachi_sum(4000000))
+#print(even_fibbonachi_sum(4000000))
 
 ############################################
 #               Problem 3                  #
@@ -98,3 +99,71 @@ def prime_factors(num):
 """ print(prime_factors(13195))
 print(prime_factors(600851475143)) """
 
+############################################
+#               Problem 4                  #
+############################################
+
+def int2list(num):
+    """ Returns a list of intergers in num """
+    return [int(d) for d in str(num)]
+
+#print(int2list(1239843))
+
+def is_palindrome(num):
+    """ Return True if num is a palindrome number """
+    digitList = int2list(num)
+    
+    i = 0
+    while i <= round(len(digitList)/2):
+        if digitList[i] != digitList[-(i+1)]:
+            return False
+        i += 1
+    return True
+
+""" print(is_palindrome(112321348234888432425324232))
+print(is_palindrome(12345678987654321)) """
+
+def largest_palindrome(num):
+    """ Returns the largest palindrome number of two intergers with length of num """
+    rangeMax = 10 ** num - 1
+    rangeMin = 1
+    maxPal = 1
+    i = rangeMax
+
+    while i >= rangeMin:
+        for j in reversed(range(rangeMin,i+1)):
+            if is_palindrome(i * j) and i * j > maxPal:
+                maxPal = i * j
+                rangeMax = i 
+                rangeMin = j
+                i -= 1
+                break
+            if j == rangeMin:
+                i -= 1
+    return [maxPal, rangeMin, rangeMax]
+
+#print(largest_palindrome(3))
+
+############################################
+#               Problem 5                  #
+############################################
+
+def smallest_common_divisor(num):
+    """ Returns the smallest number who evenly divides all integers from 1 to num """
+
+    minDiv = num * (num-1)
+    divisor = minDiv
+    num -= 2
+
+    while num > 1:
+        if divisor % num == 0:
+            num -= 1
+            minDiv = divisor
+        else:
+            divisor += minDiv
+    
+    return minDiv
+
+""" for i in range(1,20):
+    print(smallest_common_divisor(i)) """
+print(smallest_common_divisor(20))
