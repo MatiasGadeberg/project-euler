@@ -1,8 +1,8 @@
 
-""" Code for solving project euler problem 1-3 """
+""" Code for solving project euler problem 1-6 """
 
 ############################################
-#               Problem 1                  #
+#          Problem 1 - Solved              #
 ############################################
 
 def get_3_5_sum(num):
@@ -15,7 +15,7 @@ def get_3_5_sum(num):
 #print(get_3_5_sum(1000))
 
 ############################################
-#               Problem 2                  #
+#          Problem 2 - Solved              #
 ############################################
 
 def fibbonachi(num):
@@ -39,7 +39,7 @@ def even_fibbonachi_sum(num):
 #print(even_fibbonachi_sum(4000000))
 
 ############################################
-#               Problem 3                  #
+#          Problem 3 - Solved              #
 ############################################
 def prime_checker(num):
     """ Return True if number is Prime, returns False otherwise """
@@ -100,7 +100,7 @@ def prime_factors(num):
 print(prime_factors(600851475143)) """
 
 ############################################
-#               Problem 4                  #
+#          Problem 4 - Solved              #
 ############################################
 
 def int2list(num):
@@ -145,7 +145,7 @@ def largest_palindrome(num):
 #print(largest_palindrome(3))
 
 ############################################
-#               Problem 5                  #
+#          Problem 5 - Solved              #
 ############################################
 
 def smallest_common_divisor(num):
@@ -166,4 +166,69 @@ def smallest_common_divisor(num):
 
 """ for i in range(1,20):
     print(smallest_common_divisor(i)) """
-print(smallest_common_divisor(20))
+#print(smallest_common_divisor(20))
+
+############################################
+#          Problem 6 - Solved              #
+############################################
+
+def sum_square_diff(num):
+    """ Returns the difference between the sum of squares of numbers from 1 to num and the square of the sum of the same numbers
+        ie. sum_square_diff(num) = sum(i^2 for i in range(1,num+1)) - (sum(i for i in range(1, num+1)))^2"""
+
+    squaresum = sum(range(1,num+1))**2
+    squares = [i**2 for i in range(1,num+1)]
+    summedsquares = sum(squares)
+
+    return  squaresum - summedsquares
+
+#print(sum_square_diff(10))
+#print(sum_square_diff(100))
+
+############################################
+#       Problem 7 - Not Solved             #
+############################################
+
+def nth_prime(n):
+    """ Returns the n'th prime """
+
+    nprime = 0
+    prime = 0
+    num = 1
+
+    while nprime != n:
+        if prime_checker(num):
+            nprime += 1
+            prime = num
+        num += 1
+    return prime
+
+
+""" print(nth_prime(10001))
+print(nth_prime(10001-1))
+print(nth_prime(10001+1)) """
+
+############################################
+#           Problem 8 - Solved             #
+############################################
+
+largeNum = 7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450
+
+def prod_of_consecutive_numbers(num, n):
+    """ Returns the largest product of n consecutive numbers from the large number num """
+    digitList = int2list(num)
+    
+    prod = [1] * (n+1)
+    for i in range(len(digitList)-n):
+        sub = digitList[i:i+n]
+        subProd = 1
+        for digit in sub:
+            subProd = subProd * digit
+        if subProd > prod[-1]:
+            prod = sub
+            prod.append(subProd)
+    
+    return prod
+
+#print(prod_of_consecutive_numbers(largeNum,4))
+#print(prod_of_consecutive_numbers(largeNum,13))
