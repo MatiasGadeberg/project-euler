@@ -232,3 +232,21 @@ def prod_of_consecutive_numbers(num, n):
 
 #print(prod_of_consecutive_numbers(largeNum,4))
 #print(prod_of_consecutive_numbers(largeNum,13))
+
+############################################
+#       Problem 9 - Not Solved             #
+############################################
+
+
+############################################
+#       Problem 10 - Not Solved            #
+############################################
+
+def sum_primes(num):
+    """ Returns sum of primes below num """
+    return sum(prime_generator(num))
+
+print(sum_primes(10))
+print(sum_primes(20))
+print(sum(prime_generator(30)))
+print(sum_primes(2000000))
