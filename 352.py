@@ -12,7 +12,7 @@ If the result is negative, all the sheep in that group are deemed to be virus-fr
 If the result is positive, 5 additional tests will be performed (a separate test for each animal) to determine the affected individual(s).
 Since the probability of infection for any specific animal is only 0.02, the first test (on the pooled samples) for each group will be:
 
-Negative (and no more tests needed) with probability 0.985 = 0.9039207968.
+Negative (and no more tests needed) with probability 0.98^5 = 0.9039207968.
 Positive (5 additional tests needed) with probability 1 - 0.9039207968 = 0.0960792032.
 Thus, the expected number of tests for each group is 1 + 0.0960792032 × 5 = 1.480396016.
 Consequently, all 5 groups can be screened using an average of only 1.480396016 × 5 = 7.40198008 tests, which represents a huge saving of more than 70% !
@@ -36,6 +36,9 @@ Find ∑ T(10000, p) for p=0.01, 0.02, 0.03, ... 0.50.
 Give your answer rounded to six decimal places. """
 
 import matplotlib.pyplot as plt
+import math
+import Sheep
+import TestMethods
 
 def group_test_full_test_on_Pos(s,p):
     """ Returns the average number of tests needed to know the condition of all sheep in a sample size of s for a virus of probability p.
@@ -50,21 +53,43 @@ def group_prop(n, p):
     """ Return the probability that a group of n sheep has a virus with probability p """
     return 1 - (1-p)**n
 
+def optimal_group_size(p):
+    """ Calculate the optimal group size for testing sheep with propability p of having the disease """
+    return -1/math.log(1-p)
+
 x = range(1,200+1)
 y1 = []
-y2 = []
+y2 = [] 
+
 for i in x:
     p1 = group_prop(i,0.49)
-    p2 = group_prop(i,0.2)
+    p2 = group_prop(i,0.02)
     y1.append(i*(1-p1))
     y2.append(i*(1-p2))
 
+x = range(1,100,1)
+y1 = [group_prop(z,0.02) for z in x]
+y2 = [z*(1-0.02)**z for z in x]
+
 plt.plot(x, y1)
-plt.plot(x, y2)
-plt.show()
+#plt.plot(x, y2)
+#plt.plot(x,y2)
+#plt.show()
 def best_test(s, p):
     """ Calculates the average number of tests to be run on a sheep flok of size s, for a virus with probability p to be present.
         Returns the result with 6 decimal precision """
     pass
     #return avg_NO_test
 
+numTest = 0
+numSheep = 25
+sickProp = 0.02
+testRange = 100000
+
+for i in range(testRange):
+    Sheeps = Sheep.Flock(numSheep, sickProp)
+    numTest += TestMethods.simpletest(Sheeps)
+
+avgTest = numTest/testRange
+
+print(avgTest)
